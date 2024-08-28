@@ -23,3 +23,4 @@ python -m playwright install
 
 Agora, você está pronto para rodar o projeto!
 ```
+python3 main.py
