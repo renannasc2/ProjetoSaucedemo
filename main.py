@@ -15,7 +15,6 @@ def login(page):
     print("Acessei o site ✔")
     page.goto(site)
     print("Preenchi o usuário ✔")
-    print(usernameField,loginSucess)
     page.fill(usernameField,loginSucess)
     print("Preenchi a senha ✔")
     page.fill(passwordField,passUser)
@@ -42,9 +41,9 @@ def addItens(page):
 
     # Preenche as informações de checkout
     print('Estou preenchendo as infos ...')
-    page.fill(firstNameField, 'Cleitin')
-    page.fill(lastNameField, 'Rei delas!')
-    page.fill(postalCodeField, '7070-70dnv')
+    page.fill(firstNameField, 'Renan')
+    page.fill(lastNameField, 'Nascimento')
+    page.fill(postalCodeField, '17000-000')
     print('Nome, último nome e CEP preenchidos ✔')
 
     page.click(continueButton)
@@ -54,7 +53,7 @@ def addItens(page):
     print('Cliquei em Finish ✔')
 
 with sync_playwright() as playwright:
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=False, slow_mo=600)
     context = browser.new_context()
     page = context.new_page()
 
