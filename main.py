@@ -1,59 +1,60 @@
 import os
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright
-import selectors
+from elementsPage import *
 
 # Carregar as variáveis do arquivo .env
 load_dotenv()
 
 # Acessar as variáveis de ambiente
 site = os.getenv('SITE')
-loginSucess = os.getenv('LOGIN_SUCES')
+loginSucess = os.getenv('LOGIN_SUCESS')
 passUser = os.getenv('PASSWORD')
 
 def login(page):
     print("Acessei o site ✔")
     page.goto(site)
     print("Preenchi o usuário ✔")
-    page.fill(selectors.usernameField, loginSucess)
+    print(usernameField,loginSucess)
+    page.fill(usernameField,loginSucess)
     print("Preenchi a senha ✔")
-    page.fill(selectors.passwordField, passUser)
+    page.fill(passwordField,passUser)
     print("Cliquei no botão Logar ✔")
-    page.click(selectors.loginButton)
+    page.click(loginButton)
     page.wait_for_load_state('networkidle')
 
 def openAbout(page):
     print('Cliquei em "Sobre" ✔')
-    page.click(selectors.aboutButton)
-    page.click(selectors.closeButton)
+    page.click(aboutButton)
+    page.click(closeButton)
 
 def addItens(page):
     print('Adicionei a bolsa ao carrinho ✔')
-    page.click(selectors.addToCartBackpack)
+    page.click(addToCartBackpack)
     print('Adicionei a bicicleta ao carrinho ✔')
-    page.click(selectors.addToCartBikeLight)
+    page.click(addToCartBikeLight)
 
     print('Cliquei no carrinho ✔')
-    page.click(selectors.cartLink)
+    page.click(cartLink)
 
     print('Cliquei em checkout ✔')
-    page.click(selectors.checkoutButton)
+    page.click(checkoutButton)
 
     # Preenche as informações de checkout
     print('Estou preenchendo as infos ...')
-    page.fill(selectors.firstNameField, 'Cleitin')
-    page.fill(selectors.lastNameField, 'Rei delas!')
-    page.fill(selectors.postalCodeField, '7070-70dnv')
+    page.fill(firstNameField, 'Cleitin')
+    page.fill(lastNameField, 'Rei delas!')
+    page.fill(postalCodeField, '7070-70dnv')
     print('Nome, último nome e CEP preenchidos ✔')
 
-    page.click(selectors.continueButton)
+    page.click(continueButton)
     print('Cliquei em Continuar ✔')
 
-    page.click(selectors.finishButton)
+    page.click(finishButton)
     print('Cliquei em Finish ✔')
 
 with sync_playwright() as playwright:
-    browser = playwright.chromium.launch(headless=False, slow_mo=500)
+    browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
 
